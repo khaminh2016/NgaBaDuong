@@ -293,8 +293,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
 			gameOver = false;
 			showTitleScreen = true;
-			playerOneY = 250;
-			playerTwoY = 250;
+			playerOneScore = 0;
+			playerTwoScore = 0;
 			ballX = 250;
 			ballY = 250;
 		}
