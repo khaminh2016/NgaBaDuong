@@ -208,11 +208,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			/* Show welcome screen */
 
 			// Draw game title and start message
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
-			g.drawString("Pong Game", 130, 100);
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 40));
+			g.setColor(Color.RED);
+			g.drawString("Pong Game", 150, 230);
 
 			// FIXME Wellcome message below show smaller than game title
-			g.drawString("Press 'P' to play.", 175, 400);
+			g.drawString("Press 'P' to play.", 100, 400);
 		} else if (playing) {
 
 			/* Game is playing */
