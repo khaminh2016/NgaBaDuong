@@ -111,7 +111,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			}
 
 			// move player 2
-			// Move up if after moving paddle is not outside the screen
+			// Move up if after moving paddle is not outside the screen   sdgagwd
 			if (upPressed && playerTwoY - paddleSpeed > 0) {
 				playerTwoY -= paddleSpeed;
 			}
