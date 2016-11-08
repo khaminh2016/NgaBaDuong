@@ -50,8 +50,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean sPressed;
 
 	/** The ball: position, diameter */
-	private int ballX = 200;
-	private int ballY = 200;
+	private int ballX = 250;
+	private int ballY = 250;
 	private int diameter = 20;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
@@ -63,9 +63,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerOneHeight = 50;
 
 	/** Player 2's paddle: position and size */
-	private int playerTwoX = 485;
+	private int playerTwoX = 483;
 	private int playerTwoY = 250;
-	private int playerTwoWidth = 10;
+	private int playerTwoWidth = 13;
 	private int playerTwoHeight = 50;
 
 	/** Speed of the paddle - How fast the paddle move. */
