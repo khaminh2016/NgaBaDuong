@@ -25,8 +25,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import javax.jws.WebParam.Mode;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.Timer;
+import javax.swing.plaf.basic.BasicTreeUI.SelectionModelPropertyChangeHandler;
 
 /**
  * 
@@ -55,7 +61,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int diameter = 20;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
-
+	JRadioButton rRadiO[] = new JRadioButton[4];
+	String []nameColor = {"Green","White","BLUE","Ball"};
+	JLabel lbllCOlorball = new JLabel("Color Ball");
+	int colorBall=0;
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
@@ -82,7 +91,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
-
+		ScreenCOlorBall();
 		// call step() 60 fps
 		Timer timer = new Timer(1000 / 60, this);
 		timer.start();
@@ -241,7 +250,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 																	// score
 
 			// draw the ball
-			g.setColor(Color.YELLOW);
+			if(colorBall==0){
+				g.setColor(Color.GREEN);
+			}else if(colorBall==1){
+				g.setColor(Color.WHITE);
+			}else if(colorBall==2){
+				g.setColor(Color.BLUE);
+			}
 			g.fillOval(ballX, ballY, diameter, diameter);
 
 			// draw the paddles
@@ -313,5 +328,62 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			sPressed = false;
 		}
 	}
-
+	public void ScreenCOlorBall(){
+		 lbllCOlorball = new JLabel("Color Ball");
+		 add(lbllCOlorball);
+		 lbllCOlorball.setForeground(Color.yellow);
+		for (int i = 0; i < 4; i++) {
+			rRadiO[i]= new JRadioButton(nameColor[i]);
+			add(rRadiO[i]);
+			rRadiO[i].setBackground(Color.BLACK);
+			rRadiO[i].setForeground(Color.WHITE);
+		}
+		KeyListener kACtion = new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyReleased(KeyEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				// TODO Auto-generated method stub
+				if (e.getKeyCode()== KeyEvent.VK_P) {
+					showTitleScreen = false;
+					playing = true;
+					for (int i = 0; i < 4; i++) {
+						rRadiO[i].setVisible(false);
+					}
+					lbllCOlorball.setVisible(false);
+				}
+			}
+		};
+		ActionListener bAc  =new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				if(e.getSource()==rRadiO[0]){
+					colorBall=0;
+				}else if(e.getSource()==rRadiO[1]){
+					colorBall=1;
+				}else if(e.getSource()==rRadiO[2]){
+					colorBall=2;
+				}else if(e.getSource()==rRadiO[3]){
+					colorBall=3;
+				}
+			}
+		};
+		for (int i = 0; i < 4; i++) {
+			rRadiO[i].addKeyListener(kACtion);
+			rRadiO[i].addActionListener(bAc);
+		}
+	}
 }
