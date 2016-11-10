@@ -20,13 +20,16 @@ package ponggame;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.font.ImageGraphicAttribute;
 
 import javax.jws.WebParam.Mode;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -62,9 +65,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 	JRadioButton rRadiO[] = new JRadioButton[4];
-	String []nameColor = {"Green","White","BLUE","Ball"};
+	String[] nameColor = { "Green", "White", "BLUE", "Ball" };
 	JLabel lbllCOlorball = new JLabel("Color Ball");
-	int colorBall=0;
+	int colorBall = 0;
+	ImageIcon imageBall;
+	Image imageSet;
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
@@ -120,7 +125,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			}
 
 			// move player 2
-			// Move up if after moving paddle is not outside the screen   sdgagwd
+			// Move up if after moving paddle is not outside the screen sdgagwd
 			if (upPressed && playerTwoY - paddleSpeed > 0) {
 				playerTwoY -= paddleSpeed;
 			}
@@ -137,8 +142,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			int nextBallLeft = ballX + ballDeltaX;
 			int nextBallRight = ballX + diameter + ballDeltaX;
 			// FIXME Something not quite right here
-			int nextBallTop = ballY+ballDeltaY;
-			int nextBallBottom = ballY + diameter+ballDeltaY;
+			int nextBallTop = ballY + ballDeltaY;
+			int nextBallBottom = ballY + diameter + ballDeltaY;
 
 			// Player 1's paddle position
 			int playerOneRight = playerOneX + playerOneWidth;
@@ -233,8 +238,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 			// draw dashed line down center
 			for (int lineY = 0; lineY < getHeight(); lineY += 50) {
-				g.drawLine(250, lineY, 250, lineY + 25);
 				g.setColor(Color.GREEN);
+				g.drawLine(250, lineY, 250, lineY + 25);	
 			}
 
 			// draw "goal lines" on each side
@@ -248,7 +253,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 																	// score
 			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
 																	// score
-
+			//FIXME ImageIcon
 			// draw the ball
 			if(colorBall==0){
 				g.setColor(Color.GREEN);
@@ -256,6 +261,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				g.setColor(Color.WHITE);
 			}else if(colorBall==2){
 				g.setColor(Color.BLUE);
+			}else if(colorBall==3){
+				imageBall = new ImageIcon("D:/2 learning School/The second year/Application Development Practices/Git1/NgaBaDuong/3DCoGiSai/Image/he.png");
+				imageSet=imageBall.getImage();
+				g.drawImage(imageSet,30,30,this);
+				
+			
 			}
 			g.fillOval(ballX, ballY, diameter, diameter);
 
@@ -293,7 +304,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 	public void keyPressed(KeyEvent e) {
 		if (showTitleScreen) {
-			if (e.getKeyCode()== KeyEvent.VK_P) {
+			if (e.getKeyCode() == KeyEvent.VK_P) {
 				showTitleScreen = false;
 				playing = true;
 			}
@@ -328,34 +339,36 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			sPressed = false;
 		}
 	}
-	public void ScreenCOlorBall(){
-		 lbllCOlorball = new JLabel("Color Ball");
-		 add(lbllCOlorball);
-		 lbllCOlorball.setForeground(Color.yellow);
+
+	public void ScreenCOlorBall() {
+		lbllCOlorball = new JLabel("Color Ball");
+		add(lbllCOlorball);
+		lbllCOlorball.setForeground(Color.yellow);
 		for (int i = 0; i < 4; i++) {
-			rRadiO[i]= new JRadioButton(nameColor[i]);
+			rRadiO[i] = new JRadioButton(nameColor[i]);
 			add(rRadiO[i]);
 			rRadiO[i].setBackground(Color.BLACK);
 			rRadiO[i].setForeground(Color.WHITE);
 		}
+
 		KeyListener kACtion = new KeyListener() {
-			
+
 			@Override
 			public void keyTyped(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void keyReleased(KeyEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
-				if (e.getKeyCode()== KeyEvent.VK_P) {
+				if (e.getKeyCode() == KeyEvent.VK_P) {
 					showTitleScreen = false;
 					playing = true;
 					for (int i = 0; i < 4; i++) {
@@ -365,19 +378,19 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				}
 			}
 		};
-		ActionListener bAc  =new ActionListener() {
-			
+		ActionListener bAc = new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				if(e.getSource()==rRadiO[0]){
-					colorBall=0;
-				}else if(e.getSource()==rRadiO[1]){
-					colorBall=1;
-				}else if(e.getSource()==rRadiO[2]){
-					colorBall=2;
-				}else if(e.getSource()==rRadiO[3]){
-					colorBall=3;
+				if (e.getSource() == rRadiO[0]) {
+					colorBall = 0;
+				} else if (e.getSource() == rRadiO[1]) {
+					colorBall = 1;
+				} else if (e.getSource() == rRadiO[2]) {
+					colorBall = 2;
+				} else if (e.getSource() == rRadiO[3]) {
+					colorBall = 3;
 				}
 			}
 		};
