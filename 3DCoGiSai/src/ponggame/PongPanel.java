@@ -65,11 +65,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 	JRadioButton rRadiO[] = new JRadioButton[4];
-	String[] nameColor = { "Green", "White", "BLUE", "Ball" };
+	String[] nameColor = { "Green", "White", "Beuti", "Ball" };
 	JLabel lbllCOlorball = new JLabel("Color Ball");
 	int colorBall = 0;
-	ImageIcon imageBall;
-	Image imageSet;
+	ImageIcon imageBall,imageBall1,imageBall2,imageBall3;
+	Image imageSet,imageSet1,imageSet2,imageSet3;
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
@@ -257,18 +257,21 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// draw the ball
 			if(colorBall==0){
 				g.setColor(Color.GREEN);
+				g.fillOval(ballX, ballY, diameter, diameter);
 			}else if(colorBall==1){
 				g.setColor(Color.WHITE);
+				g.fillOval(ballX, ballY, diameter, diameter);
 			}else if(colorBall==2){
-				g.setColor(Color.BLUE);
-			}else if(colorBall==3){
-				imageBall = new ImageIcon("D:/2 learning School/The second year/Application Development Practices/Git1/NgaBaDuong/3DCoGiSai/Image/he.png");
+				imageBall = new ImageIcon("./Image/color.gif");
 				imageSet=imageBall.getImage();
-				g.drawImage(imageSet,30,30,this);
+				g.drawImage(imageSet, ballX, ballY, diameter+20, diameter+20,this);
+			}else if(colorBall==3){
+				imageBall = new ImageIcon("./Image/ball.gif");
+				imageSet=imageBall.getImage();
+				g.drawImage(imageSet, ballX, ballY, diameter+20, diameter+20,this);
 				
-			
 			}
-			g.fillOval(ballX, ballY, diameter, diameter);
+	
 
 			// draw the paddles
 			g.setColor(Color.BLUE);
