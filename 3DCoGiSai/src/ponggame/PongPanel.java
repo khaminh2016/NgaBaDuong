@@ -68,8 +68,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	String[] nameColor = { "Green", "White", "Beuti", "Ball" };
 	JLabel lbllCOlorball = new JLabel("Color Ball");
 	int colorBall = 0;
-	ImageIcon imageBall,imageBall1,imageBall2,imageBall3;
-	Image imageSet,imageSet1,imageSet2,imageSet3;
+	ImageIcon imageBall;
+	Image imageSet;
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
