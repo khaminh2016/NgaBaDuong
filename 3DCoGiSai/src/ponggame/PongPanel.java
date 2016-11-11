@@ -78,6 +78,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	int iNewNumber2=0;
 	int aNewNumber[] =new int[5];
 	int aNewNumber2[] =new int[5];
+	int OngCoNoi=0;
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
@@ -430,7 +431,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			rRadiO[i].addKeyListener(kACtion);
 			rRadiO[i].addActionListener(bAc);
 		}
-		ranDoomPoint();
+		
 		timerMinh();
 	}
 
@@ -442,7 +443,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		for (int i = 0; i <1; i++) {
 			do {
 				iNewNumber=rd.nextInt(480);
-			} while (v.contains(iNewNumber)&&i<5);
+			} while (v.contains(iNewNumber));
 			 if(!v.isEmpty()&&v.size()>=maxNumberOccur) v.remove(0);
 	            v.add(iNewNumber);
 	        	
@@ -452,7 +453,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		for (int i = 0; i <1; i++) {
 			do {
 				iNewNumber2=rd.nextInt(450);
-			} while (v2.contains(iNewNumber)&&i<5);
+			} while (v2.contains(iNewNumber));
 			 if(!v2.isEmpty()&&v2.size()>=maxNumberOccur) v2.remove(0);
 	            v2.add(iNewNumber2);
 	           
@@ -461,13 +462,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		
 	}
 	public void timerMinh() {
-		Timer acTime = new Timer(5000+(iNewNumber+iNewNumber)*10,new ActionListener() {
+		Timer acTime = new Timer((5000+10*(iNewNumber+iNewNumber)),new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent g) {
 				// TODO Auto-generated method stub
-				aNewNumber[0]= iNewNumber;
-				aNewNumber2[0]= iNewNumber2 ;
+				ranDoomPoint();
+					aNewNumber[0]= iNewNumber;
+					aNewNumber2[0]= iNewNumber2 ;
+			
 			}
 		});
 		acTime.start();
