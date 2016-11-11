@@ -36,4 +36,5 @@ public class MainGameUI extends JFrame{
        mainFrame.setVisible(true);
        mainFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
+    
 }

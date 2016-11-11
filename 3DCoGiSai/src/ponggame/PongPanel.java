@@ -26,6 +26,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.font.ImageGraphicAttribute;
+import java.util.Random;
+import java.util.Vector;
 
 import javax.jws.WebParam.Mode;
 import javax.swing.ButtonGroup;
@@ -72,6 +74,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	ImageIcon imageBall;
 	Image imageSet;
 	ButtonGroup bgSelect = new ButtonGroup();
+	int iNewNumber=0;
+	int iNewNumber2=0;
+	int aNewNumber[] =new int[5];
+	int aNewNumber2[] =new int[5];
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
@@ -94,14 +100,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
-
+		
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
+
 		ScreenCOlorBall();
 		// call step() 60 fps
 		Timer timer = new Timer(1000 / 60, this);
 		timer.start();
+		
 	}
 
 	/** Implement actionPerformed */
@@ -209,7 +217,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			ballX += ballDeltaX;
 			ballY += ballDeltaY;
 		}
-
+	
 		// stuff has moved, tell this JPanel to repaint itself
 		repaint();
 	}
@@ -241,13 +249,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// draw dashed line down center
 			for (int lineY = 0; lineY < getHeight(); lineY += 50) {
 				g.setColor(Color.GREEN);
-				g.drawLine(250, lineY, 250, lineY + 25);	
+				g.drawLine(250, lineY, 250, lineY + 25);
 			}
 
 			// draw "goal lines" on each side
 			g.drawLine(playerOneRight, 0, playerOneRight, getHeight());
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight());
-			
+
 			// draw the scores
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.setColor(Color.BLUE);
@@ -255,32 +263,47 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 																	// score
 			g.drawString(String.valueOf(playerTwoScore), 400, 100); // Player 2
 																	// score
-			//FIXME ImageIcon
+
 			// draw the ball
-			if(colorBall==0){
+		
+			if (colorBall == 0) {
 				g.setColor(Color.GREEN);
 				g.fillOval(ballX, ballY, diameter, diameter);
-			}else if(colorBall==1){
+			for (int i = 0; i < 5; i++) {
+				g.fillOval(aNewNumber[i],aNewNumber2[i],30,30);
+			}
+				
+				
+		
+			} else if (colorBall == 1) {
 				g.setColor(Color.WHITE);
 				g.fillOval(ballX, ballY, diameter, diameter);
-			}else if(colorBall==2){
+				for (int i = 0; i < 5; i++) {
+					g.fillOval(aNewNumber[i],aNewNumber2[i],30,30);
+				}
+			} else if (colorBall == 2) {
 				imageBall = new ImageIcon("./Image/color.gif");
-				imageSet=imageBall.getImage();
-				g.drawImage(imageSet, ballX, ballY, diameter+20, diameter+20,this);
-			}else if(colorBall==3){
+				imageSet = imageBall.getImage();
+				g.drawImage(imageSet, ballX, ballY, diameter + 20, diameter + 20, this);
+				for (int i = 0; i < 5; i++) {
+					g.fillOval(aNewNumber[i],aNewNumber2[i],30,30);
+				}
+			} else if (colorBall == 3) {
 				imageBall = new ImageIcon("./Image/ball.gif");
-				imageSet=imageBall.getImage();
-				g.drawImage(imageSet, ballX, ballY, diameter+20, diameter+20,this);
-				
+				imageSet = imageBall.getImage();
+				g.drawImage(imageSet, ballX, ballY, diameter + 20, diameter + 20, this);
+				for (int i = 0; i < 5; i++) {
+					g.fillOval(aNewNumber[i],aNewNumber2[i],30,30);
+				}
 			}
-	
-
+			
+			
 			// draw the paddles
 			g.setColor(Color.BLUE);
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.setColor(Color.GREEN);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
-		} else if (gameOver) {
+			} else if (gameOver) {
 
 			/* Show End game screen with winner name and score */
 
@@ -312,6 +335,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			if (e.getKeyCode() == KeyEvent.VK_P) {
 				showTitleScreen = false;
 				playing = true;
+				for (int i = 0; i < 4; i++) {
+					rRadiO[i].setVisible(false);
+				}
+				lbllCOlorball.setVisible(false);
 			}
 		} else if (playing) {
 			if (e.getKeyCode() == KeyEvent.VK_UP) {
@@ -381,6 +408,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 						rRadiO[i].setVisible(false);
 					}
 					lbllCOlorball.setVisible(false);
+					
 				}
 			}
 		};
@@ -404,5 +432,34 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			rRadiO[i].addKeyListener(kACtion);
 			rRadiO[i].addActionListener(bAc);
 		}
+		ranDoomPoint();
 	}
+
+	public void ranDoomPoint() {
+		Random rd = new Random();
+		Vector v =new Vector<>();
+		Vector v2 = new Vector<>();
+		int maxNumberOccur =100;
+		for (int i = 0; i <5; i++) {
+			do {
+				iNewNumber=rd.nextInt(450);
+			} while (v.contains(iNewNumber)&&i<5);
+			 if(!v.isEmpty()&&v.size()>=maxNumberOccur) v.remove(0);
+	            v.add(iNewNumber);
+	        	aNewNumber[i]= iNewNumber;
+	  
+		}
+	
+		for (int i = 0; i <3; i++) {
+			do {
+				iNewNumber2=rd.nextInt(450);
+			} while (v2.contains(iNewNumber)&&i<5);
+			 if(!v2.isEmpty()&&v2.size()>=maxNumberOccur) v2.remove(0);
+	            v2.add(iNewNumber2);
+	            aNewNumber2[i]= iNewNumber2 ;
+	            
+		}
+		
+	}
+
 }
