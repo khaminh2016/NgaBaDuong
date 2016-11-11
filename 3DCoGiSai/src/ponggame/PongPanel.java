@@ -28,6 +28,7 @@ import java.awt.event.KeyListener;
 import java.awt.font.ImageGraphicAttribute;
 
 import javax.jws.WebParam.Mode;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
@@ -70,6 +71,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	int colorBall = 0;
 	ImageIcon imageBall;
 	Image imageSet;
+	ButtonGroup bgSelect = new ButtonGroup();
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
@@ -350,10 +352,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		for (int i = 0; i < 4; i++) {
 			rRadiO[i] = new JRadioButton(nameColor[i]);
 			add(rRadiO[i]);
+			bgSelect.add(rRadiO[i]);
 			rRadiO[i].setBackground(Color.BLACK);
 			rRadiO[i].setForeground(Color.WHITE);
 		}
-
+		rRadiO[0].setSelected(true);
 		KeyListener kACtion = new KeyListener() {
 
 			@Override
