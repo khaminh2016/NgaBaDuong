@@ -12,7 +12,7 @@ import javax.swing.JFrame;
 
 /**
  * 
- * @author Invisible Man
+ * @author Invisible Man 2
  *
  */
 public class MainGameUI extends JFrame{
