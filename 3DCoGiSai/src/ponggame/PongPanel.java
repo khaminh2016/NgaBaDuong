@@ -265,36 +265,34 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 																	// score
 
 			// draw the ball
-		
+			
+			g.setColor(Color.red);
+			g.fillOval(aNewNumber[0]-30,aNewNumber2[0],30,30);
 			if (colorBall == 0) {
 				g.setColor(Color.GREEN);
 				g.fillOval(ballX, ballY, diameter, diameter);
-			for (int i = 0; i < 5; i++) {
-				g.fillOval(aNewNumber[i],aNewNumber2[i],30,30);
-			}
-				
 				
 		
 			} else if (colorBall == 1) {
 				g.setColor(Color.WHITE);
 				g.fillOval(ballX, ballY, diameter, diameter);
-				for (int i = 0; i < 5; i++) {
-					g.fillOval(aNewNumber[i],aNewNumber2[i],30,30);
-				}
+				
+					//g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
+				
 			} else if (colorBall == 2) {
 				imageBall = new ImageIcon("./Image/color.gif");
 				imageSet = imageBall.getImage();
 				g.drawImage(imageSet, ballX, ballY, diameter + 20, diameter + 20, this);
-				for (int i = 0; i < 5; i++) {
-					g.fillOval(aNewNumber[i],aNewNumber2[i],30,30);
-				}
+				
+					//g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
+				
 			} else if (colorBall == 3) {
 				imageBall = new ImageIcon("./Image/ball.gif");
 				imageSet = imageBall.getImage();
 				g.drawImage(imageSet, ballX, ballY, diameter + 20, diameter + 20, this);
-				for (int i = 0; i < 5; i++) {
-					g.fillOval(aNewNumber[i],aNewNumber2[i],30,30);
-				}
+		
+					//g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
+				
 			}
 			
 			
@@ -433,6 +431,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			rRadiO[i].addActionListener(bAc);
 		}
 		ranDoomPoint();
+		timerMinh();
 	}
 
 	public void ranDoomPoint() {
@@ -440,26 +439,38 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		Vector v =new Vector<>();
 		Vector v2 = new Vector<>();
 		int maxNumberOccur =100;
-		for (int i = 0; i <5; i++) {
+		for (int i = 0; i <1; i++) {
 			do {
-				iNewNumber=rd.nextInt(450);
+				iNewNumber=rd.nextInt(480);
 			} while (v.contains(iNewNumber)&&i<5);
 			 if(!v.isEmpty()&&v.size()>=maxNumberOccur) v.remove(0);
 	            v.add(iNewNumber);
-	        	aNewNumber[i]= iNewNumber;
+	        	
 	  
 		}
 	
-		for (int i = 0; i <3; i++) {
+		for (int i = 0; i <1; i++) {
 			do {
 				iNewNumber2=rd.nextInt(450);
 			} while (v2.contains(iNewNumber)&&i<5);
 			 if(!v2.isEmpty()&&v2.size()>=maxNumberOccur) v2.remove(0);
 	            v2.add(iNewNumber2);
-	            aNewNumber2[i]= iNewNumber2 ;
+	           
 	            
 		}
 		
+	}
+	public void timerMinh() {
+		Timer acTime = new Timer(5000+(iNewNumber+iNewNumber)*10,new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent g) {
+				// TODO Auto-generated method stub
+				aNewNumber[0]= iNewNumber;
+				aNewNumber2[0]= iNewNumber2 ;
+			}
+		});
+		acTime.start();
 	}
 
 }
