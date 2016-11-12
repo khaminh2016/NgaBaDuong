@@ -102,6 +102,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	int aNewNumber[] = new int[5];
 	int aNewNumber2[] = new int[5];
 	int aNewNumber3[] =new int[5];
+	String []imagesTouch={"./Image/hightspeed.png",
+			"./Image/slowspeed.png",
+			"./Image/minus25.png"	,
+			"./Image/plus25.png"	,
+	};
+	Image imageSetTouch[] = new Image[4];
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
@@ -270,9 +276,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 																	// score
 
 			// draw the ball
-
+			for (int i = 0; i < 4; i++) {
+				imageBall = new ImageIcon(imagesTouch[i]);
+				imageSetTouch[i]=imageBall.getImage();
+			}
 			g.setColor(Color.red);
-			g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
+		//	g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
+			g.drawImage(imageSetTouch[aNewNumber3[0]],aNewNumber[0],aNewNumber2[0],rRan,rRan,this);
 			double Dai = Math.max(ballX, aNewNumber[0]) - Math.min(ballX, aNewNumber[0]);
 			double Rong = Math.max(ballY, aNewNumber2[0]) - Math.min(ballY, aNewNumber2[0]);
 			double aveDR = Math.sqrt(Dai * Dai + Rong * Rong);
