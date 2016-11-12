@@ -74,11 +74,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	ImageIcon imageBall;
 	Image imageSet;
 	ButtonGroup bgSelect = new ButtonGroup();
-	int iNewNumber=0;
-	int iNewNumber2=0;
-	int aNewNumber[] =new int[5];
-	int aNewNumber2[] =new int[5];
-	int OngCoNoi=0;
+	
+	
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
@@ -97,11 +94,18 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	/** Player score, show on upper left and right. */
 	private int playerOneScore;
 	private int playerTwoScore;
-
+	/** BallRanDom */
+	int rRan = 30;
+	int iNewNumber = 0;
+	int iNewNumber2 = 0;
+	int iNewNumber3 = 0;
+	int aNewNumber[] = new int[5];
+	int aNewNumber2[] = new int[5];
+	int aNewNumber3[] =new int[5];
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
-		
+
 		// listen to key presses
 		setFocusable(true);
 		addKeyListener(this);
@@ -110,7 +114,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		// call step() 60 fps
 		Timer timer = new Timer(1000 / 60, this);
 		timer.start();
-		
+
 	}
 
 	/** Implement actionPerformed */
@@ -218,7 +222,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			ballX += ballDeltaX;
 			ballY += ballDeltaY;
 		}
-	
+
 		// stuff has moved, tell this JPanel to repaint itself
 		repaint();
 	}
@@ -266,43 +270,50 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 																	// score
 
 			// draw the ball
-			
+
 			g.setColor(Color.red);
-			g.fillOval(aNewNumber[0]-30,aNewNumber2[0],30,30);
+			g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
+			double Dai = Math.max(ballX, aNewNumber[0]) - Math.min(ballX, aNewNumber[0]);
+			double Rong = Math.max(ballY, aNewNumber2[0]) - Math.min(ballY, aNewNumber2[0]);
+			double aveDR = Math.sqrt(Dai * Dai + Rong * Rong);
+			if (aveDR <= (rRan / 2 + diameter * 2)) {
+				aNewNumber[0] = 0;
+				aNewNumber2[0] = 0;
+				g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
+			
+			}
 			if (colorBall == 0) {
 				g.setColor(Color.GREEN);
 				g.fillOval(ballX, ballY, diameter, diameter);
-				
-		
+
 			} else if (colorBall == 1) {
 				g.setColor(Color.WHITE);
 				g.fillOval(ballX, ballY, diameter, diameter);
-				
-					//g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
-				
+
+				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
+
 			} else if (colorBall == 2) {
 				imageBall = new ImageIcon("./Image/color.gif");
 				imageSet = imageBall.getImage();
 				g.drawImage(imageSet, ballX, ballY, diameter + 20, diameter + 20, this);
-				
-					//g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
-				
+
+				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
+
 			} else if (colorBall == 3) {
 				imageBall = new ImageIcon("./Image/ball.gif");
 				imageSet = imageBall.getImage();
 				g.drawImage(imageSet, ballX, ballY, diameter + 20, diameter + 20, this);
-		
-					//g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
-				
+
+				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
+
 			}
-			
-			
+
 			// draw the paddles
 			g.setColor(Color.BLUE);
 			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
 			g.setColor(Color.GREEN);
 			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
-			} else if (gameOver) {
+		} else if (gameOver) {
 
 			/* Show End game screen with winner name and score */
 
@@ -407,7 +418,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 						rRadiO[i].setVisible(false);
 					}
 					lbllCOlorball.setVisible(false);
-					
+
 				}
 			}
 		};
@@ -431,46 +442,57 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			rRadiO[i].addKeyListener(kACtion);
 			rRadiO[i].addActionListener(bAc);
 		}
-		
+
 		timerMinh();
 	}
 
 	public void ranDoomPoint() {
 		Random rd = new Random();
-		Vector v =new Vector<>();
-		Vector v2 = new Vector<>();
-		int maxNumberOccur =100;
-		for (int i = 0; i <1; i++) {
+		Vector v = new Vector();
+		Vector v2 = new Vector();
+		Vector v3 = new Vector();
+		int maxNumberOccur = 100;
+		for (int i = 0; i < 1; i++) {
 			do {
-				iNewNumber=rd.nextInt(480);
+				iNewNumber = rd.nextInt(480);
 			} while (v.contains(iNewNumber));
-			 if(!v.isEmpty()&&v.size()>=maxNumberOccur) v.remove(0);
-	            v.add(iNewNumber);
-	        	
-	  
+			if (!v.isEmpty() && v.size() >= maxNumberOccur)
+				v.remove(0);
+			v.add(iNewNumber);
+
 		}
-	
-		for (int i = 0; i <1; i++) {
+
+		for (int i = 0; i < 1; i++) {
 			do {
-				iNewNumber2=rd.nextInt(450);
+				iNewNumber2 = rd.nextInt(450);
 			} while (v2.contains(iNewNumber));
-			 if(!v2.isEmpty()&&v2.size()>=maxNumberOccur) v2.remove(0);
-	            v2.add(iNewNumber2);
-	           
-	            
+			if (!v2.isEmpty() && v2.size() >= maxNumberOccur)
+				v2.remove(0);
+			v2.add(iNewNumber2);
+
 		}
-		
+		for (int i = 0; i < 1; i++) {
+			do {
+				iNewNumber3 = rd.nextInt(4);
+			} while (v3.contains(iNewNumber));
+			if (!v3.isEmpty() && v3.size() >= maxNumberOccur)
+				v3.remove(0);
+			v3.add(iNewNumber3);
+		}
+
 	}
+
 	public void timerMinh() {
-		Timer acTime = new Timer((5000+10*(iNewNumber+iNewNumber)),new ActionListener() {
-			
+		Timer acTime = new Timer((5000 + 10 * (iNewNumber + iNewNumber)), new ActionListener() {
+
 			@Override
 			public void actionPerformed(ActionEvent g) {
 				// TODO Auto-generated method stub
 				ranDoomPoint();
-					aNewNumber[0]= iNewNumber;
-					aNewNumber2[0]= iNewNumber2 ;
-			
+				aNewNumber[0] = iNewNumber;
+				aNewNumber2[0] = iNewNumber2;
+				aNewNumber3[0]=iNewNumber3;
+
 			}
 		});
 		acTime.start();
