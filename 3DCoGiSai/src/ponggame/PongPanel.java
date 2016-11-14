@@ -95,7 +95,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerOneScore;
 	private int playerTwoScore;
 	/** BallRanDom */
-	int rRan = 30;
+	int rRan = 50;
 	int iNewNumber = 0;
 	int iNewNumber2 = 0;
 	int iNewNumber3 = 0;
@@ -235,6 +235,17 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
+					if(touchsign==1){
+						if(aNewNumber3[0]==0){
+							numbertimer=numbertimer*3;
+						}else if(aNewNumber3[0]==1){
+							numbertimer=numbertimer/3;
+						}else if(aNewNumber3[0]==2){
+							playerTwoHeight=playerOneHeight-playerTwoHeight*25/100;
+						}else if(aNewNumber3[0]==3){
+							playerTwoHeight=playerOneHeight+playerTwoHeight*25/100;
+						}
+					}
 				}
 			}
 
@@ -294,8 +305,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				imageBall = new ImageIcon(imagesTouch[i]);
 				imageSetTouch[i]=imageBall.getImage();
 			}
-			g.setColor(Color.red);
+			//g.setColor(Color.red);
 		//	g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
+		
 			g.drawImage(imageSetTouch[aNewNumber3[0]],aNewNumber[0],aNewNumber2[0],rRan,rRan,this);
 			double Dai = Math.max(ballX, aNewNumber[0]) - Math.min(ballX, aNewNumber[0]);
 			double Rong = Math.max(ballY, aNewNumber2[0]) - Math.min(ballY, aNewNumber2[0]);
