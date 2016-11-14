@@ -95,7 +95,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerOneScore;
 	private int playerTwoScore;
 	/** BallRanDom */
-	int rRan = 30;
+	int rRan = 100;
 	int iNewNumber = 0;
 	int iNewNumber2 = 0;
 	int iNewNumber3 = 0;
@@ -282,7 +282,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			}
 			g.setColor(Color.red);
 		//	g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
-			g.drawImage(imageSetTouch[aNewNumber3[0]],aNewNumber[0],aNewNumber2[0],30,30,this);
+			g.drawImage(imageSetTouch[aNewNumber3[0]],aNewNumber[0],aNewNumber2[0],rRan,rRan,this);
 			double Dai = Math.max(ballX, aNewNumber[0]) - Math.min(ballX, aNewNumber[0]);
 			double Rong = Math.max(ballY, aNewNumber2[0]) - Math.min(ballY, aNewNumber2[0]);
 			double aveDR = Math.sqrt(Dai * Dai + Rong * Rong);
