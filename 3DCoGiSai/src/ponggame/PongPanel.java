@@ -95,7 +95,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private int playerOneScore;
 	private int playerTwoScore;
 	/** BallRanDom */
-	int rRan = 100;
+	int rRan = 30;
 	int iNewNumber = 0;
 	int iNewNumber2 = 0;
 	int iNewNumber3 = 0;
@@ -108,6 +108,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			"./Image/plus25.png"	,
 	};
 	Image imageSetTouch[] = new Image[4];
+	/** Ball Action**/
+	int touchsign=0;
+	int numbertimer=60;
 	/** Construct a PongPanel. */
 	public PongPanel() {
 		setBackground(backgroundColor);
@@ -118,7 +121,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 		ScreenCOlorBall();
 		// call step() 60 fps
-		Timer timer = new Timer(1000 / 60, this);
+		Timer timer = new Timer(1000 / numbertimer, this);
 		timer.start();
 
 	}
@@ -199,6 +202,17 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
+					if(touchsign==1){
+						if(aNewNumber3[0]==0){
+							numbertimer=numbertimer*3;
+						}else if(aNewNumber3[0]==1){
+							numbertimer=numbertimer/3;
+						}else if(aNewNumber3[0]==2){
+							playerOneHeight=playerOneHeight-playerOneHeight*25/100;
+						}else if(aNewNumber3[0]==3){
+							playerOneHeight=playerOneHeight+playerOneHeight*25/100;
+						}
+					}
 				}
 			}
 
@@ -290,7 +304,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				aNewNumber[0] = 0;
 				aNewNumber2[0] = 0;
 				g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
-			
+				touchsign=1;
 			}
 			if (colorBall == 0) {
 				g.setColor(Color.GREEN);
