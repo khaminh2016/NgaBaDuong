@@ -204,9 +204,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					ballDeltaX *= -1;
 					if(touchsign==1){
 						if(aNewNumber3[0]==0){
-							numbertimer=numbertimer*3;
+							ballDeltaY=ballDeltaY+2;
+							ballDeltaX=ballDeltaX-2;
 						}else if(aNewNumber3[0]==1){
-							numbertimer=numbertimer/3;
+							ballDeltaY = ballDeltaY-1;
 						}else if(aNewNumber3[0]==2){
 							playerOneHeight=playerOneHeight-playerOneHeight*25/100;
 						}else if(aNewNumber3[0]==3){
@@ -237,9 +238,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					ballDeltaX *= -1;
 					if(touchsign==1){
 						if(aNewNumber3[0]==0){
-							numbertimer=numbertimer*3;
+							ballDeltaY=ballDeltaY+2;
+							ballDeltaX=ballDeltaX-2;
 						}else if(aNewNumber3[0]==1){
-							numbertimer=numbertimer/3;
+							ballDeltaY = ballDeltaY-1;
 						}else if(aNewNumber3[0]==2){
 							playerTwoHeight=playerOneHeight-playerTwoHeight*25/100;
 						}else if(aNewNumber3[0]==3){
@@ -307,12 +309,18 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			}
 			//g.setColor(Color.red);
 		//	g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
-		
-			g.drawImage(imageSetTouch[aNewNumber3[0]],aNewNumber[0],aNewNumber2[0],rRan,rRan,this);
+			if(aNewNumber[0]==0){
+				rRan=0;
+				g.drawImage(imageSetTouch[aNewNumber3[0]],aNewNumber[0],aNewNumber2[0],rRan,rRan,this);
+			}else if(aNewNumber[0]!=0) {
+				rRan=50;
+				g.drawImage(imageSetTouch[aNewNumber3[0]],aNewNumber[0],aNewNumber2[0],rRan,rRan,this);
+			}
+			
 			double Dai = Math.max(ballX, aNewNumber[0]) - Math.min(ballX, aNewNumber[0]);
 			double Rong = Math.max(ballY, aNewNumber2[0]) - Math.min(ballY, aNewNumber2[0]);
 			double aveDR = Math.sqrt(Dai * Dai + Rong * Rong);
-			if (aveDR <= (rRan / 2 + diameter * 2)) {
+			if (aveDR <= (rRan / 2 + diameter / 2)) {
 				aNewNumber[0] = 0;
 				aNewNumber2[0] = 0;
 				g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
@@ -487,10 +495,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		Vector v = new Vector();
 		Vector v2 = new Vector();
 		Vector v3 = new Vector();
-		int maxNumberOccur = 100;
+		int maxNumberOccur = 200;
 		for (int i = 0; i < 1; i++) {
 			do {
-				iNewNumber = rd.nextInt(480);
+				iNewNumber = rd.nextInt(480);//480
 			} while (v.contains(iNewNumber));
 			if (!v.isEmpty() && v.size() >= maxNumberOccur)
 				v.remove(0);
@@ -519,7 +527,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	}
 
 	public void timerMinh() {
-		Timer acTime = new Timer((5000 + 10 * (iNewNumber + iNewNumber)), new ActionListener() {
+		Timer acTime = new Timer((6000 + 10 * (iNewNumber + iNewNumber)), new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent g) {
