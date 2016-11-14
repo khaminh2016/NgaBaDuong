@@ -71,6 +71,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	String[] nameColor = { "Green", "White", "Beuti", "Ball" };
 	JLabel lbllCOlorball = new JLabel("Color Ball");
 	int colorBall = 0;
+	// khai bao paddle = hinh
+	ImageIcon imagePaddle;
+	Image imageA;
 	ImageIcon imageBall;
 	Image imageSet;
 	ButtonGroup bgSelect = new ButtonGroup();
@@ -79,7 +82,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
-	private int playerOneWidth = 10;
+	private int playerOneWidth = 13;
 	private int playerOneHeight = 50;
 
 	/** Player 2's paddle: position and size */
@@ -354,9 +357,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 			// draw the paddles
 			g.setColor(Color.BLUE);
-			g.fillRect(playerOneX, playerOneY, playerOneWidth, playerOneHeight);
+			imagePaddle = new ImageIcon("./Image/C.gif");
+			imageA = imagePaddle.getImage();
+			g.drawImage(imageA, playerOneX, playerOneY, playerOneWidth, playerOneHeight, this);
 			g.setColor(Color.GREEN);
-			g.fillRect(playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight);
+			imagePaddle = new ImageIcon("./Image/C.gif");
+			imageA = imagePaddle.getImage();
+			g.drawImage(imageA, playerTwoX, playerTwoY, playerTwoWidth, playerTwoHeight, this);
 		} else if (gameOver) {
 
 			/* Show End game screen with winner name and score */
