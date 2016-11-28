@@ -115,6 +115,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	int touchsign=0;
 	int numbertimer=60;
 	/** Construct a PongPanel. */
+	ImageIcon bg1 = new  ImageIcon("Image/bg1.jpg");
+	ImageIcon bg2 = new  ImageIcon("Image/bg2.jpg");
+	ImageIcon bg3 = new  ImageIcon("Image/bg3.jpg");
 	public PongPanel() {
 		setBackground(backgroundColor);
 
@@ -273,14 +276,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			/* Show welcome screen */
 
 			// Draw game title and start message
+			g.drawImage(bg1.getImage(), 0, 0, 500, 500, null);
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 40));
 			g.setColor(Color.RED);
-			g.drawString("Pong Game", 150, 230);
+			g.drawString("PONG GAME", 125, 150);
 
 			// FIXME Wellcome message below show smaller than game title
-			g.drawString("Press 'P' to play.", 100, 400);
+			g.drawString("Press 'P'", 10, 400);
+			g.drawString("to play", 40, 435);
 		} else if (playing) {
-
+			g.drawImage(bg2.getImage(), 0, 0, 500, 500, null);
 			/* Game is playing */
 
 			// set the coordinate limit
@@ -289,7 +294,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 
 			// draw dashed line down center
 			for (int lineY = 0; lineY < getHeight(); lineY += 50) {
-				g.setColor(Color.GREEN);
+				g.setColor(Color.RED);
 				g.drawLine(250, lineY, 250, lineY + 25);
 			}
 
