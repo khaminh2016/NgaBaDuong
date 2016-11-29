@@ -293,7 +293,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 40));
 			g.setColor(Color.RED);
 			g.drawString("PONG GAME", 125, 150);
-
+			g.drawImage(MouseMove.getImage(),MoveX-widthMouse/2,MoveY-widthMouse/2,widthMouse,widthMouse,this);
 			// FIXME Wellcome message below show smaller than game title
 			g.drawString("Press 'P'", 10, 400);
 			g.drawString("to play", 40, 435);
@@ -386,7 +386,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			imagePaddle = new ImageIcon("./Image/C.gif");
 			imageA = imagePaddle.getImage();
 			g.drawImage(imageA, playerTwoX, playerTwoY - 8, playerTwoWidth, playerTwoHeight, this);
-			g.drawImage(MouseMove.getImage(),MoveX,MoveY,widthMouse,widthMouse,null);
+			g.drawImage(MouseMove.getImage(),MoveX-widthMouse/2,MoveY-widthMouse/2,widthMouse,widthMouse,this);
+
 		} else if (gameOver) {
 
 			/* Show End game screen with winner name and score */
@@ -408,6 +409,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 				g.drawString("Player 2 Wins!", 165, 200);
 				
 			}
+			g.drawImage(MouseMove.getImage(),MoveX-widthMouse/2,MoveY-widthMouse/2,widthMouse,widthMouse,this);
 
 			// Draw Restart message
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
@@ -591,7 +593,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 	@Override
 	public void mouseMoved(MouseEvent g) {
 		MoveX=g.getX();
-		MoveY=g.getX();
+		MoveY=g.getY();
 		
 	}
 }
