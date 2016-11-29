@@ -71,7 +71,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 	JRadioButton rRadiO[] = new JRadioButton[4];
-	String[] nameColor = { "Green", "White", "Beuti", "Ball" };
+	String[] nameColor = { "Green", "Black", "Beuti", "Ball" };
 	JLabel lbllCOlorball = new JLabel("Color Ball");
 	int colorBall = 0;
 	// khai bao paddle = hinh
@@ -114,9 +114,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 	int touchsign = 0;
 	int numbertimer = 60;
 	/** Construct a PongPanel. */
-	ImageIcon bg1 = new ImageIcon("Image/bg1.jpg");
-	ImageIcon bg2 = new ImageIcon("Image/bg2.jpg");
-	ImageIcon bg3 = new ImageIcon("Image/bg3.jpg");
+	ImageIcon bg1 = new  ImageIcon("Image/bg1.jpg");
+	ImageIcon bg2 = new  ImageIcon("Image/bg2.jpg");
+	ImageIcon bg3 = new  ImageIcon("Image/bg3.jpg");
+	ImageIcon bg4 = new  ImageIcon("Image/bg4.gif");
+	ImageIcon bg5 = new  ImageIcon("Image/bg5.gif");
 	int reacBallX; // tam cua hinh tron
 	int reacBallY;
 	int reacRandomX; // tam cua hinh tron randoom;
@@ -208,7 +210,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 					playerTwoScore++;
 
 					// Player 2 Win, restart the game
-					if (playerTwoScore == 30) {
+					if (playerTwoScore == 3) {
 						playing = false;
 						gameOver = true;
 					}
@@ -242,7 +244,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 					playerOneScore++;
 
 					// Player 1 Win, restart the game
-					if (playerOneScore == 30) {
+					if (playerOneScore == 3) {
 						playing = false;
 						gameOver = true;
 					
@@ -356,7 +358,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 				g.fillOval(ballX, ballY, diameter, diameter);
 
 			} else if (colorBall == 1) {
-				g.setColor(Color.WHITE);
+				g.setColor(Color.BLACK);
 				g.fillOval(ballX, ballY, diameter, diameter);
 
 				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
@@ -395,24 +397,29 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			// Draw scores
 			// TODO Set Blue color
 
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+			g.drawImage(bg3.getImage(), 0, 0, 500, 500, null);
+			g.drawImage(bg4.getImage(), 150, 150, 200, 200, null);
+			g.drawImage(bg5.getImage(), 300, 300, 200, 200, null);
+			g.setFont(new Font(Font.DIALOG, Font.BOLD,45));
+			g.setColor(Color.WHITE);
 			g.drawString(String.valueOf(playerOneScore), 100, 100);
 			g.drawString(String.valueOf(playerTwoScore), 400, 100);
 
+
 			// Draw the winner name
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 50));
+			g.setColor(Color.RED);
 			if (playerOneScore > playerTwoScore) {
-				retur=1;
-				g.drawString("Player 1 Wins!", 165, 200);
+				g.drawString("Player 1 Wins!", 85, 190);
 			} else {
-				retur=2;
-				g.drawString("Player 2 Wins!", 165, 200);
-				
+				g.drawString("Player 2 Wins!", 85, 190);
 			}
 			g.drawImage(MouseMove.getImage(),MoveX-widthMouse/2,MoveY-widthMouse/2,widthMouse,widthMouse,this);
 
 			// Draw Restart message
-			g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
+			g.setFont(new Font(Font.DIALOG, Font.BOLD, 25));	
+			g.setColor(Color.RED);
+			g.drawString("Press 'Space' to replay", 10, 435);
 			// TODO Draw a restart message
 		}
 	}
