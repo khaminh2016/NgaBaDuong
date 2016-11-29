@@ -25,6 +25,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.font.ImageGraphicAttribute;
 import java.util.Random;
 import java.util.Vector;
@@ -45,7 +47,7 @@ import javax.swing.plaf.basic.BasicTreeUI.SelectionModelPropertyChangeHandler;
  * @author Invisible Man
  *
  */
-public class PongPanel extends JPanel implements ActionListener, KeyListener {
+public class PongPanel extends JPanel implements ActionListener, KeyListener,MouseMotionListener {
 	private static final long serialVersionUID = -1097341635155021546L;
 
 	private boolean showTitleScreen = true;
@@ -121,7 +123,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	int reacRandomY;
 	/** sau khi Over Banh quay ve **/
 	int retur = 0;
-
+	/** add Mouse moution **/
+	ImageIcon MouseMove = new ImageIcon("./Image/la.gif");
+	int MoveX;
+	int MoveY;
+	int widthMouse=100;
 	public PongPanel() {
 		setBackground(backgroundColor);
 
@@ -133,7 +139,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		// call step() 60 fps
 		Timer timer = new Timer(1000 / numbertimer, this);
 		timer.start();
-
+		addMouseMotionListener(this);
 	}
 
 	/** Implement actionPerformed */
@@ -292,6 +298,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.drawString("Press 'P'", 10, 400);
 			g.drawString("to play", 40, 435);
 		} else if (playing) {
+		
 			g.drawImage(bg2.getImage(), 0, 0, 500, 500, null);
 			/* Game is playing */
 
@@ -379,6 +386,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			imagePaddle = new ImageIcon("./Image/C.gif");
 			imageA = imagePaddle.getImage();
 			g.drawImage(imageA, playerTwoX, playerTwoY - 8, playerTwoWidth, playerTwoHeight, this);
+			g.drawImage(MouseMove.getImage(),MoveX,MoveY,widthMouse,widthMouse,null);
 		} else if (gameOver) {
 
 			/* Show End game screen with winner name and score */
@@ -574,5 +582,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		});
 		acTime.start();
 	}
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		
+		
+	}
 
+	@Override
+	public void mouseMoved(MouseEvent g) {
+		MoveX=g.getX();
+		MoveY=g.getX();
+		
+	}
 }
