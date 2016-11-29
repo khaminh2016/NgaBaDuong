@@ -213,6 +213,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 					if (playerTwoScore == 3) {
 						playing = false;
 						gameOver = true;
+						Sound.play("Sound/start_1_.wav");
 					}
 					
 					ballX = 250;
@@ -247,7 +248,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 					if (playerOneScore == 3) {
 						playing = false;
 						gameOver = true;
-					
+						Sound.play("Sound/start_1_.wav");
 					}
 					
 					ballX = 250;
@@ -411,8 +412,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			g.setColor(Color.RED);
 			if (playerOneScore > playerTwoScore) {
 				g.drawString("Player 1 Wins!", 85, 190);
+				Sound.play("Sound/start_1_.wav");
 			} else {
 				g.drawString("Player 2 Wins!", 85, 190);
+				Sound.play("Sound/start_1_.wav");
 			}
 			g.drawImage(MouseMove.getImage(),MoveX-widthMouse/2,MoveY-widthMouse/2,widthMouse,widthMouse,this);
 
@@ -430,6 +433,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 	public void keyPressed(KeyEvent e) {
 		if (showTitleScreen) {
 			if (e.getKeyCode() == KeyEvent.VK_P) {
+				Sound.play("Sound/start_1_.wav");
 				showTitleScreen = false;
 				playing = true;
 				for (int i = 0; i < 4; i++) {
@@ -450,6 +454,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 		} else if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
 			gameOver = false;
 			showTitleScreen = true;
+			Sound.play("Sound/win2.wav");
 			if (retur == 1) {
 				ballDeltaX = -1;
 			} else if (retur == 2) {
@@ -506,6 +511,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			public void keyPressed(KeyEvent e) {
 				// TODO Auto-generated method stub
 				if (e.getKeyCode() == KeyEvent.VK_P) {
+					Sound.play("Sound/win2.wav");
 					showTitleScreen = false;
 					playing = true;
 					for (int i = 0; i < 4; i++) {
