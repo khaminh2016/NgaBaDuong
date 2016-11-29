@@ -62,6 +62,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	private boolean sPressed;
 
 	/** The ball: position, diameter */
+
 	private int ballX = 250;
 	private int ballY = 250;
 	private int diameter = 20;
@@ -77,8 +78,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	ImageIcon imageBall;
 	Image imageSet;
 	ButtonGroup bgSelect = new ButtonGroup();
-	
-	
+
 	/** Player 1's paddle: position and size */
 	private int playerOneX = 0;
 	private int playerOneY = 250;
@@ -104,24 +104,24 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 	int iNewNumber3 = 0;
 	int aNewNumber[] = new int[5];
 	int aNewNumber2[] = new int[5];
-	int aNewNumber3[] =new int[5];
-	String []imagesTouch={"./Image/hightspeed.png",
-			"./Image/slowspeed.png",
-			"./Image/minus25.png"	,
-			"./Image/plus25.png"	,
-	};
+	int aNewNumber3[] = new int[5];
+	String[] imagesTouch = { "./Image/hightspeed.png", "./Image/slowspeed.png", "./Image/minus25.png",
+			"./Image/plus25.png", };
 	Image imageSetTouch[] = new Image[4];
-	/** Ball Action**/
-	int touchsign=0;
-	int numbertimer=60;
+	/** Ball Action **/
+	int touchsign = 0;
+	int numbertimer = 60;
 	/** Construct a PongPanel. */
-	ImageIcon bg1 = new  ImageIcon("Image/bg1.jpg");
-	ImageIcon bg2 = new  ImageIcon("Image/bg2.jpg");
-	ImageIcon bg3 = new  ImageIcon("Image/bg3.jpg");
-	int reacBallX;  // tam cua hinh tron
+	ImageIcon bg1 = new ImageIcon("Image/bg1.jpg");
+	ImageIcon bg2 = new ImageIcon("Image/bg2.jpg");
+	ImageIcon bg3 = new ImageIcon("Image/bg3.jpg");
+	int reacBallX; // tam cua hinh tron
 	int reacBallY;
 	int reacRandomX; // tam cua hinh tron randoom;
 	int reacRandomY;
+	/** sau khi Over Banh quay ve **/
+	int retur = 0;
+
 	public PongPanel() {
 		setBackground(backgroundColor);
 
@@ -206,6 +206,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 						playing = false;
 						gameOver = true;
 					}
+					
 					ballX = 250;
 					ballY = 250;
 				} else {
@@ -238,9 +239,11 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 					if (playerOneScore == 30) {
 						playing = false;
 						gameOver = true;
+					
 					}
-					ballX = 200;
-					ballY = 200;
+					
+					ballX = 250;
+					ballY = 250;
 				} else {
 
 					// If the ball hitting the paddle, it will bounce back
@@ -317,29 +320,29 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// draw the ball
 			for (int i = 0; i < 4; i++) {
 				imageBall = new ImageIcon(imagesTouch[i]);
-				imageSetTouch[i]=imageBall.getImage();
+				imageSetTouch[i] = imageBall.getImage();
 			}
-			//g.setColor(Color.red);
-		//	g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
-			if(aNewNumber[0]==0){
-				rRan=0;
-				g.drawImage(imageSetTouch[aNewNumber3[0]],aNewNumber[0],aNewNumber2[0],rRan,rRan,this);
-			}else if(aNewNumber[0]!=0) {
-				rRan=50;
-				g.drawImage(imageSetTouch[aNewNumber3[0]],aNewNumber[0],aNewNumber2[0],rRan,rRan,this);
+			// g.setColor(Color.red);
+			// g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
+			if (aNewNumber[0] == 0) {
+				rRan = 0;
+				g.drawImage(imageSetTouch[aNewNumber3[0]], aNewNumber[0], aNewNumber2[0], rRan, rRan, this);
+			} else if (aNewNumber[0] != 0) {
+				rRan = 50;
+				g.drawImage(imageSetTouch[aNewNumber3[0]], aNewNumber[0], aNewNumber2[0], rRan, rRan, this);
 			}
-			reacBallX=ballX+diameter/2;
-			reacBallY=ballY+diameter/2;
-			reacRandomX=aNewNumber[0]+rRan/2;
-			reacRandomY=aNewNumber2[0]+rRan/2;
-			double Dai = Math.max(reacBallX,reacRandomX) - Math.min(reacBallX,reacRandomX);
-			double Rong = Math.max(reacBallY,reacRandomY) - Math.min(reacBallY,reacRandomY);
+			reacBallX = ballX + diameter / 2;
+			reacBallY = ballY + diameter / 2;
+			reacRandomX = aNewNumber[0] + rRan / 2;
+			reacRandomY = aNewNumber2[0] + rRan / 2;
+			double Dai = Math.max(reacBallX, reacRandomX) - Math.min(reacBallX, reacRandomX);
+			double Rong = Math.max(reacBallY, reacRandomY) - Math.min(reacBallY, reacRandomY);
 			double aveDR = Math.sqrt(Dai * Dai + Rong * Rong);
 			if (aveDR <= (rRan / 2 + diameter / 2)) {
 				aNewNumber[0] = 0;
 				aNewNumber2[0] = 0;
 				g.fillOval(aNewNumber[0] - 30, aNewNumber2[0], rRan, rRan);
-				touchsign=1;
+				touchsign = 1;
 			}
 			if (colorBall == 0) {
 				g.setColor(Color.GREEN);
@@ -371,17 +374,18 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			g.setColor(Color.BLUE);
 			imagePaddle = new ImageIcon("./Image/C.gif");
 			imageA = imagePaddle.getImage();
-			g.drawImage(imageA, playerOneX, playerOneY-8, playerOneWidth, playerOneHeight, this);
+			g.drawImage(imageA, playerOneX, playerOneY - 8, playerOneWidth, playerOneHeight, this);
 			g.setColor(Color.GREEN);
 			imagePaddle = new ImageIcon("./Image/C.gif");
 			imageA = imagePaddle.getImage();
-			g.drawImage(imageA, playerTwoX, playerTwoY-8, playerTwoWidth, playerTwoHeight, this);
+			g.drawImage(imageA, playerTwoX, playerTwoY - 8, playerTwoWidth, playerTwoHeight, this);
 		} else if (gameOver) {
 
 			/* Show End game screen with winner name and score */
 
 			// Draw scores
 			// TODO Set Blue color
+
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.drawString(String.valueOf(playerOneScore), 100, 100);
 			g.drawString(String.valueOf(playerTwoScore), 400, 100);
@@ -389,9 +393,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 			// Draw the winner name
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
+				retur=1;
 				g.drawString("Player 1 Wins!", 165, 200);
 			} else {
+				retur=2;
 				g.drawString("Player 2 Wins!", 165, 200);
+				
 			}
 
 			// Draw Restart message
@@ -426,10 +433,17 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		} else if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
 			gameOver = false;
 			showTitleScreen = true;
+			if (retur == 1) {
+				ballDeltaX = -1;
+			} else if (retur == 2) {
+				ballDeltaX = 1;
+			}
+		
 			playerOneScore = 0;
 			playerTwoScore = 0;
 			ballX = 250;
 			ballY = 250;
+
 		}
 	}
 
@@ -517,7 +531,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 		int maxNumberOccur = 200;
 		for (int i = 0; i < 1; i++) {
 			do {
-				iNewNumber = rd.nextInt(480);//480
+				iNewNumber = rd.nextInt(480);// 480
 			} while (v.contains(iNewNumber));
 			if (!v.isEmpty() && v.size() >= maxNumberOccur)
 				v.remove(0);
@@ -554,7 +568,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener {
 				ranDoomPoint();
 				aNewNumber[0] = iNewNumber;
 				aNewNumber2[0] = iNewNumber2;
-				aNewNumber3[0]=iNewNumber3;
+				aNewNumber3[0] = iNewNumber3;
 
 			}
 		});
