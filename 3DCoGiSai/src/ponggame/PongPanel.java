@@ -128,6 +128,9 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 	int MoveX;
 	int MoveY;
 	int widthMouse=100;
+	/** Score effect**/
+	int countEffectPlayer1=0;
+	int countEffectPlayer2=0;
 	public PongPanel() {
 		setBackground(backgroundColor);
 
@@ -208,9 +211,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 					playerTwoScore++;
 
 					// Player 2 Win, restart the game
-					if (playerTwoScore == 3) {
+					if (playerTwoScore == 1) {
 						playing = false;
 						gameOver = true;
+						countEffectPlayer2++;
 					}
 					
 					ballX = 250;
@@ -242,10 +246,10 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 					playerOneScore++;
 
 					// Player 1 Win, restart the game
-					if (playerOneScore == 3) {
+					if (playerOneScore == 1) {
 						playing = false;
 						gameOver = true;
-					
+						countEffectPlayer1++;
 					}
 					
 					ballX = 250;
@@ -315,7 +319,43 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			// draw "goal lines" on each side
 			g.drawLine(playerOneRight, 0, playerOneRight, getHeight());
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight());
-
+			// effect Score
+			if(countEffectPlayer1==1){
+				g.setColor(Color.BLUE);
+				g.fillRect(80,30,10,40);
+			}else if(countEffectPlayer1==2){
+				g.setColor(Color.BLUE);
+				g.fillRect(80,30,10,40);
+				g.setColor(Color.GREEN);
+				g.fillRect(100,30,10,40);
+			}else if(countEffectPlayer1==3){
+				g.setColor(Color.BLUE);
+				g.fillRect(80,30,10,40);
+				g.setColor(Color.GREEN);
+				g.fillRect(100,30,10,40);
+				g.setColor(Color.RED);
+				g.fillRect(100+20,30,10,40);
+			}else if(countEffectPlayer1==0){
+				g.fillRect(0,0,0,0);
+			}
+			if(countEffectPlayer2==1){
+				g.setColor(Color.BLUE);
+				g.fillRect(380,30,10,40);
+			}else if(countEffectPlayer2==2){
+				g.setColor(Color.BLUE);
+				g.fillRect(380,30,10,40);
+				g.setColor(Color.GREEN);
+				g.fillRect(400,30,10,40);
+			}else if(countEffectPlayer2==3){
+				g.setColor(Color.BLUE);
+				g.fillRect(380,30,10,40);
+				g.setColor(Color.GREEN);
+				g.fillRect(400,30,10,40);
+				g.setColor(Color.RED);
+				g.fillRect(400+20,30,10,40);
+			}else if(countEffectPlayer2==0){
+				g.fillRect(0,0,0,0);
+			}
 			// draw the scores
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.setColor(Color.BLUE);
@@ -376,7 +416,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
 
 			}
-
 			// draw the paddles
 			g.setColor(Color.BLUE);
 			imagePaddle = new ImageIcon("./Image/C.gif");
@@ -439,6 +478,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 				wPressed = true;
 			} else if (e.getKeyCode() == KeyEvent.VK_S) {
 				sPressed = true;
+			} else if(e.getKeyCode()== KeyEvent.VK_V){
+				if(countEffectPlayer1==3){
+					
+				}
+			} else if(e.getKeyCode()==KeyEvent.VK_N){
+				if(countEffectPlayer2==3){
+					
+				}
 			}
 		} else if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
 			gameOver = false;
