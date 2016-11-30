@@ -481,7 +481,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 				sPressed = true;
 			} else if(e.getKeyCode()== KeyEvent.VK_V){
 				if(countEffectPlayer1==3){
-					
+					media
 				}
 			} else if(e.getKeyCode()==KeyEvent.VK_N){
 				if(countEffectPlayer2==3){
