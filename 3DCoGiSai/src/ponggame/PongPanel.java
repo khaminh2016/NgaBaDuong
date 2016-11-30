@@ -48,7 +48,7 @@ import javax.swing.plaf.basic.BasicTreeUI.SelectionModelPropertyChangeHandler;
  * @author Invisible Man
  *
  */
-public class PongPanel extends JPanel implements ActionListener, KeyListener,MouseMotionListener {
+public class PongPanel extends JPanel implements ActionListener, KeyListener, MouseMotionListener {
 	private static final long serialVersionUID = -1097341635155021546L;
 
 	private boolean showTitleScreen = true;
@@ -128,10 +128,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 	ImageIcon MouseMove = new ImageIcon("./Image/la.gif");
 	int MoveX;
 	int MoveY;
-	int widthMouse=100;
-	/** Score effect**/
-	int countEffectPlayer1=0;
-	int countEffectPlayer2=0;
+	int widthMouse = 100;
+	/** Score effect **/
+	int countEffectPlayer1 = 0;
+	int countEffectPlayer2 = 0;
+	ImageIcon geteffect = new ImageIcon("./Image/la.gif");
+	int countPlay = 0;
+	private boolean PlayEffect1;
+	private boolean PlayEffect2;
 	public PongPanel() {
 		setBackground(backgroundColor);
 
@@ -164,7 +168,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 				playerOneY -= paddleSpeed;
 			}
 			// Move down if after moving paddle is not outside the screen
-			if (sPressed && playerOneY + playerOneHeight + paddleSpeed-10 < getHeight()) {
+			if (sPressed && playerOneY + playerOneHeight + paddleSpeed - 10 < getHeight()) {
 				playerOneY += paddleSpeed;
 			}
 
@@ -174,7 +178,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 				playerTwoY -= paddleSpeed;
 			}
 			// Move down if after moving paddle is not outside the screen
-			if (downPressed && playerTwoY + playerTwoHeight + paddleSpeed -10 < getHeight()) {
+			if (downPressed && playerTwoY + playerTwoHeight + paddleSpeed - 10 < getHeight()) {
 				playerTwoY += paddleSpeed;
 			}
 
@@ -217,23 +221,23 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 						gameOver = true;
 						countEffectPlayer2++;
 					}
-					
+
 					ballX = 250;
 					ballY = 250;
 				} else {
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
-					if(touchsign==1){
-						if(aNewNumber3[0]==0){
-							ballDeltaY=ballDeltaY+2;
-							ballDeltaX=ballDeltaX-2;
-						}else if(aNewNumber3[0]==1){
-							ballDeltaY = ballDeltaY-1;
-						}else if(aNewNumber3[0]==2){
-							playerOneHeight=playerOneHeight-playerOneHeight*25/100;
-						}else if(aNewNumber3[0]==3){
-							playerOneHeight=playerOneHeight+playerOneHeight*25/100;
+					if (touchsign == 1) {
+						if (aNewNumber3[0] == 0) {
+							ballDeltaY = ballDeltaY + 2;
+							ballDeltaX = ballDeltaX - 2;
+						} else if (aNewNumber3[0] == 1) {
+							ballDeltaY = ballDeltaY - 1;
+						} else if (aNewNumber3[0] == 2) {
+							playerOneHeight = playerOneHeight - playerOneHeight * 25 / 100;
+						} else if (aNewNumber3[0] == 3) {
+							playerOneHeight = playerOneHeight + playerOneHeight * 25 / 100;
 						}
 					}
 				}
@@ -252,7 +256,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 						gameOver = true;
 						countEffectPlayer1++;
 					}
-					
+
 					ballX = 250;
 					ballY = 250;
 				} else {
@@ -260,16 +264,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 					// If the ball hitting the paddle, it will bounce back
 					// FIXME Something wrong here
 					ballDeltaX *= -1;
-					if(touchsign==1){
-						if(aNewNumber3[0]==0){
-							ballDeltaY=ballDeltaY+2;
-							ballDeltaX=ballDeltaX-2;
-						}else if(aNewNumber3[0]==1){
-							ballDeltaY = ballDeltaY-1;
-						}else if(aNewNumber3[0]==2){
-							playerTwoHeight=playerOneHeight-playerTwoHeight*25/100;
-						}else if(aNewNumber3[0]==3){
-							playerTwoHeight=playerOneHeight+playerTwoHeight*25/100;
+					if (touchsign == 1) {
+						if (aNewNumber3[0] == 0) {
+							ballDeltaY = ballDeltaY + 2;
+							ballDeltaX = ballDeltaX - 2;
+						} else if (aNewNumber3[0] == 1) {
+							ballDeltaY = ballDeltaY - 1;
+						} else if (aNewNumber3[0] == 2) {
+							playerTwoHeight = playerOneHeight - playerTwoHeight * 25 / 100;
+						} else if (aNewNumber3[0] == 3) {
+							playerTwoHeight = playerOneHeight + playerTwoHeight * 25 / 100;
 						}
 					}
 				}
@@ -298,12 +302,13 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 40));
 			g.setColor(Color.RED);
 			g.drawString("PONG GAME", 125, 150);
-			g.drawImage(MouseMove.getImage(),MoveX-widthMouse/2,MoveY-widthMouse/2,widthMouse,widthMouse,this);
+			g.drawImage(MouseMove.getImage(), MoveX - widthMouse / 2, MoveY - widthMouse / 2, widthMouse, widthMouse,
+					this);
 			// FIXME Wellcome message below show smaller than game title
 			g.drawString("Press 'P'", 10, 400);
 			g.drawString("to play", 40, 435);
 		} else if (playing) {
-		
+
 			g.drawImage(bg2.getImage(), 0, 0, 500, 500, null);
 			/* Game is playing */
 
@@ -321,42 +326,43 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			g.drawLine(playerOneRight, 0, playerOneRight, getHeight());
 			g.drawLine(playerTwoLeft, 0, playerTwoLeft, getHeight());
 			// effect Score
-			if(countEffectPlayer1==1){
+			if (countEffectPlayer1 == 1) {
 				g.setColor(Color.BLUE);
-				g.fillRect(80,30,10,40);
-			}else if(countEffectPlayer1==2){
+				g.fillRect(80, 30, 10, 40);
+			} else if (countEffectPlayer1 == 2) {
 				g.setColor(Color.BLUE);
-				g.fillRect(80,30,10,40);
+				g.fillRect(80, 30, 10, 40);
 				g.setColor(Color.GREEN);
-				g.fillRect(100,30,10,40);
-			}else if(countEffectPlayer1==3){
+				g.fillRect(100, 30, 10, 40);
+			} else if (countEffectPlayer1 == 3) {
 				g.setColor(Color.BLUE);
-				g.fillRect(80,30,10,40);
+				g.fillRect(80, 30, 10, 40);
 				g.setColor(Color.GREEN);
-				g.fillRect(100,30,10,40);
+				g.fillRect(100, 30, 10, 40);
 				g.setColor(Color.RED);
-				g.fillRect(100+20,30,10,40);
-			}else if(countEffectPlayer1==0){
-				g.fillRect(0,0,0,0);
+				g.fillRect(100 + 20, 30, 10, 40);
+			} else if (countEffectPlayer1 == 0) {
+				g.fillRect(0, 0, 0, 0);
 			}
-			if(countEffectPlayer2==1){
+			if (countEffectPlayer2 == 1) {
 				g.setColor(Color.BLUE);
-				g.fillRect(380,30,10,40);
-			}else if(countEffectPlayer2==2){
+				g.fillRect(380, 30, 10, 40);
+			} else if (countEffectPlayer2 == 2) {
 				g.setColor(Color.BLUE);
-				g.fillRect(380,30,10,40);
+				g.fillRect(380, 30, 10, 40);
 				g.setColor(Color.GREEN);
-				g.fillRect(400,30,10,40);
-			}else if(countEffectPlayer2==3){
+				g.fillRect(400, 30, 10, 40);
+			} else if (countEffectPlayer2 == 3) {
 				g.setColor(Color.BLUE);
-				g.fillRect(380,30,10,40);
+				g.fillRect(380, 30, 10, 40);
 				g.setColor(Color.GREEN);
-				g.fillRect(400,30,10,40);
+				g.fillRect(400, 30, 10, 40);
 				g.setColor(Color.RED);
-				g.fillRect(400+20,30,10,40);
-			}else if(countEffectPlayer2==0){
-				g.fillRect(0,0,0,0);
+				g.fillRect(400 + 20, 30, 10, 40);
+			} else if (countEffectPlayer2 == 0) {
+				g.fillRect(0, 0, 0, 0);
 			}
+
 			// draw the scores
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			g.setColor(Color.BLUE);
@@ -417,6 +423,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
 
 			}
+
 			// draw the paddles
 			g.setColor(Color.BLUE);
 			imagePaddle = new ImageIcon("./Image/C.gif");
@@ -426,8 +433,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			imagePaddle = new ImageIcon("./Image/C.gif");
 			imageA = imagePaddle.getImage();
 			g.drawImage(imageA, playerTwoX, playerTwoY - 8, playerTwoWidth, playerTwoHeight, this);
-			g.drawImage(MouseMove.getImage(),MoveX-widthMouse/2,MoveY-widthMouse/2,widthMouse,widthMouse,this);
-
+			g.drawImage(MouseMove.getImage(), MoveX - widthMouse / 2, MoveY - widthMouse / 2, widthMouse, widthMouse,
+					this);
+			if (PlayEffect1 == true) {
+				g.drawImage(geteffect.getImage(), 0,0, 500, 500, this);
+			}else if(PlayEffect2==true){
+				
+			}
+			
 		} else if (gameOver) {
 
 			/* Show End game screen with winner name and score */
@@ -442,14 +455,15 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			// Draw the winner name
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 36));
 			if (playerOneScore > playerTwoScore) {
-				retur=1;
+				retur = 1;
 				g.drawString("Player 1 Wins!", 165, 200);
 			} else {
-				retur=2;
+				retur = 2;
 				g.drawString("Player 2 Wins!", 165, 200);
-				
+
 			}
-			g.drawImage(MouseMove.getImage(),MoveX-widthMouse/2,MoveY-widthMouse/2,widthMouse,widthMouse,this);
+			g.drawImage(MouseMove.getImage(), MoveX - widthMouse / 2, MoveY - widthMouse / 2, widthMouse, widthMouse,
+					this);
 
 			// Draw Restart message
 			g.setFont(new Font(Font.DIALOG, Font.BOLD, 18));
@@ -479,16 +493,19 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 				wPressed = true;
 			} else if (e.getKeyCode() == KeyEvent.VK_S) {
 				sPressed = true;
-			} else if(e.getKeyCode()== KeyEvent.VK_V){
-				if(countEffectPlayer1==3){
-					media
-				}
-			} else if(e.getKeyCode()==KeyEvent.VK_N){
-				if(countEffectPlayer2==3){
-					
+			} 
+			if (e.getKeyCode() == KeyEvent.VK_V) {
+				if (countEffectPlayer1 == 3) {
+					PlayEffect1 = true;
 				}
 			}
-		} else if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
+			if (e.getKeyCode() == KeyEvent.VK_N) {
+				if (countEffectPlayer2 == 3) {
+					PlayEffect2=true;
+				}
+			}
+		}
+		if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
 			gameOver = false;
 			showTitleScreen = true;
 			if (retur == 1) {
@@ -496,7 +513,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 			} else if (retur == 2) {
 				ballDeltaX = 1;
 			}
-		
+
 			playerOneScore = 0;
 			playerTwoScore = 0;
 			ballX = 250;
@@ -632,16 +649,16 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener,Mou
 		});
 		acTime.start();
 	}
+
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
-		
-		
+
 	}
 
 	@Override
 	public void mouseMoved(MouseEvent g) {
-		MoveX=g.getX();
-		MoveY=g.getY();
-		
+		MoveX = g.getX();
+		MoveY = g.getY();
+
 	}
 }
