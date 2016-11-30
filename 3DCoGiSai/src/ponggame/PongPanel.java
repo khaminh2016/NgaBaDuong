@@ -32,6 +32,7 @@ import java.util.Random;
 import java.util.Vector;
 
 import javax.jws.WebParam.Mode;
+import javax.print.attribute.standard.Media;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
