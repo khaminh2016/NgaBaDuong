@@ -68,7 +68,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 	private int ballX = 250;
 	private int ballY = 250;
-	private int diameter = 20;
+	private int diameter = 50;
 	private int ballDeltaX = -1;
 	private int ballDeltaY = 3;
 	JRadioButton rRadiO[] = new JRadioButton[4];
@@ -427,14 +427,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			} else if (colorBall == 2) {
 				imageBall = new ImageIcon("./Image/color.gif");
 				imageSet = imageBall.getImage();
-				g.drawImage(imageSet, ballX, ballY, diameter + 20, diameter + 20, this);
+				g.drawImage(imageSet, ballX, ballY, diameter , diameter , this);
 
 				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
 
 			} else if (colorBall == 3) {
 				imageBall = new ImageIcon("./Image/ball.gif");
 				imageSet = imageBall.getImage();
-				g.drawImage(imageSet, ballX, ballY, diameter + 20, diameter + 20, this);
+				g.drawImage(imageSet, ballX, ballY, diameter, diameter , this);
 
 				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
 
