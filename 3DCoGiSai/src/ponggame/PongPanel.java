@@ -223,7 +223,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 					// Player 2 Win, restart the game
 
-					if (playerTwoScore == 1) {
+					if (playerTwoScore == 2) {
 
 						playing = false;
 						gameOver = true;
@@ -262,7 +262,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 
 					// Player 1 Win, restart the game
 
-					if (playerOneScore == 1) {
+					if (playerOneScore == 2) {
 
 						playing = false;
 						gameOver = true;
