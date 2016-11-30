@@ -133,10 +133,12 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	int countEffectPlayer1 = 0;
 	int countEffectPlayer2 = 0;
 	ImageIcon geteffect1 = new ImageIcon("./Image/raw.gif");
-	ImageIcon geteffect2 = new ImageIcon("./Image/raw.gif");
-	int countPlay = 0;
+	ImageIcon geteffect2 = new ImageIcon("./Image/raw2.gif");
+	int countPlay1 = 0;
+	int countPlay2 = 0;
 	private boolean PlayEffect1;
 	private boolean PlayEffect2;
+
 	public PongPanel() {
 		setBackground(backgroundColor);
 
@@ -426,22 +428,38 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			}
 
 			// draw the paddles
-			g.setColor(Color.BLUE);
-			imagePaddle = new ImageIcon("./Image/C.gif");
-			imageA = imagePaddle.getImage();
-			g.drawImage(imageA, playerOneX, playerOneY - 8, playerOneWidth, playerOneHeight, this);
+			if(countPlay1==0){
+				g.setColor(Color.BLUE);
+				imagePaddle = new ImageIcon("./Image/C.gif");
+				imageA = imagePaddle.getImage();
+				g.drawImage(imageA, playerOneX, playerOneY - 8, playerOneWidth, playerOneHeight, this);
+			}else if(countPlay1==1){
+				
+			}
+			if(countPlay2==0){
 			g.setColor(Color.GREEN);
 			imagePaddle = new ImageIcon("./Image/C.gif");
 			imageA = imagePaddle.getImage();
 			g.drawImage(imageA, playerTwoX, playerTwoY - 8, playerTwoWidth, playerTwoHeight, this);
-			g.drawImage(MouseMove.getImage(), MoveX - widthMouse / 2, MoveY - widthMouse / 2, widthMouse, widthMouse,
-					this);
-			if (PlayEffect1 == true) {
-				g.drawImage(geteffect1.getImage(), 0,0, 500, 500, this);
-			}else if(PlayEffect2==true){
+			}else if(countPlay2==1){
 				
 			}
 			
+			
+			g.drawImage(MouseMove.getImage(), MoveX - widthMouse / 2, MoveY - widthMouse / 2, widthMouse, widthMouse,
+					this);
+			
+			if (PlayEffect1 == true) {
+				g.drawImage(geteffect1.getImage(), 0, 0, 500, 500, this);
+			} else if (PlayEffect2 == true) {
+				g.drawImage(geteffect2.getImage(), 0, 0, 500, 500, this);
+			}
+			if (PlayEffect1 == false) {
+				g.drawImage(geteffect1.getImage(), 0, 0, 0, 0, this);
+			} 
+			if (PlayEffect2 == false) {
+				g.drawImage(geteffect2.getImage(), 0, 0, 0, 0, this);
+			}
 		} else if (gameOver) {
 
 			/* Show End game screen with winner name and score */
@@ -494,16 +512,26 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				wPressed = true;
 			} else if (e.getKeyCode() == KeyEvent.VK_S) {
 				sPressed = true;
-			} 
+			}
 			if (e.getKeyCode() == KeyEvent.VK_V) {
 				if (countEffectPlayer1 == 3) {
 					PlayEffect1 = true;
+					countEffectPlayer1 = 0;
+					countPlay1=1;
 				}
 			}
 			if (e.getKeyCode() == KeyEvent.VK_N) {
 				if (countEffectPlayer2 == 3) {
-					PlayEffect2=true;
+					PlayEffect2 = true;
+					countEffectPlayer2 = 0;
+					countPlay2=1;
 				}
+			}
+			if (e.getKeyCode() == KeyEvent.VK_G) {
+				PlayEffect1 = false;
+			}
+			if (e.getKeyCode() == KeyEvent.VK_J) {
+				PlayEffect2 = false;
 			}
 		}
 		if (gameOver && e.getKeyCode() == KeyEvent.VK_SPACE) {
@@ -514,7 +542,6 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			} else if (retur == 2) {
 				ballDeltaX = 1;
 			}
-
 			playerOneScore = 0;
 			playerTwoScore = 0;
 			ballX = 250;
