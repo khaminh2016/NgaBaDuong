@@ -132,7 +132,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	/** Score effect **/
 	int countEffectPlayer1 = 0;
 	int countEffectPlayer2 = 0;
-	ImageIcon geteffect = new ImageIcon("./Image/la.gif");
+	ImageIcon geteffect1 = new ImageIcon("./Image/raw.gif");
+	ImageIcon geteffect2 = new ImageIcon("./Image/raw.gif");
 	int countPlay = 0;
 	private boolean PlayEffect1;
 	private boolean PlayEffect2;
@@ -436,7 +437,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			g.drawImage(MouseMove.getImage(), MoveX - widthMouse / 2, MoveY - widthMouse / 2, widthMouse, widthMouse,
 					this);
 			if (PlayEffect1 == true) {
-				g.drawImage(geteffect.getImage(), 0,0, 500, 500, this);
+				g.drawImage(geteffect1.getImage(), 0,0, 500, 500, this);
 			}else if(PlayEffect2==true){
 				
 			}
