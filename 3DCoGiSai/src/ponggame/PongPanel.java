@@ -427,14 +427,14 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			} else if (colorBall == 2) {
 				imageBall = new ImageIcon("./Image/color.gif");
 				imageSet = imageBall.getImage();
-				g.drawImage(imageSet, ballX, ballY, diameter , diameter , this);
+				g.drawImage(imageSet, ballX, ballY, diameter +6, diameter +6, this);
 
 				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
 
 			} else if (colorBall == 3) {
 				imageBall = new ImageIcon("./Image/ball.gif");
 				imageSet = imageBall.getImage();
-				g.drawImage(imageSet, ballX, ballY, diameter, diameter , this);
+				g.drawImage(imageSet, ballX, ballY, diameter+6, diameter+6 , this);
 
 				// g.fillOval(aNewNumber[0],aNewNumber2[0],30,30);
 
