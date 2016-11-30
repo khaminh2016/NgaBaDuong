@@ -138,7 +138,8 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 	int countPlay2 = 0;
 	private boolean PlayEffect1;
 	private boolean PlayEffect2;
-
+	ImageIcon paddleEffectLeft = new ImageIcon("./Image/dragon.gif");
+	ImageIcon paddleEffectRight = new ImageIcon("./Image/dragon.gif");
 	public PongPanel() {
 		setBackground(backgroundColor);
 
@@ -434,7 +435,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 				imageA = imagePaddle.getImage();
 				g.drawImage(imageA, playerOneX, playerOneY - 8, playerOneWidth, playerOneHeight, this);
 			}else if(countPlay1==1){
-				
+				g.drawImage(paddleEffectLeft.getImage(), playerOneX, playerOneY - 8, playerOneWidth, playerOneHeight+20, this);
 			}
 			if(countPlay2==0){
 			g.setColor(Color.GREEN);
@@ -442,7 +443,7 @@ public class PongPanel extends JPanel implements ActionListener, KeyListener, Mo
 			imageA = imagePaddle.getImage();
 			g.drawImage(imageA, playerTwoX, playerTwoY - 8, playerTwoWidth, playerTwoHeight, this);
 			}else if(countPlay2==1){
-				
+			g.drawImage(paddleEffectRight.getImage(), playerTwoX, playerTwoY - 8, playerTwoWidth, playerTwoHeight+20, this);
 			}
 			
 			
